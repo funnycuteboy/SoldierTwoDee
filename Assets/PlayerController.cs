@@ -12,6 +12,12 @@ public class PlayerController : MonoBehaviour
         float move = Input.GetAxis("Horizontal");
         transform.Translate(Vector2.right * move * speed * Time.deltaTime);
         
+        // boundary limits ??
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, -6f, 6f);
+        transform.position = pos;
+        
+        
         // shoot w/ spacebar
         if (Input.GetKeyDown(KeyCode.Space))
         {
