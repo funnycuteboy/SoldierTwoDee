@@ -8,17 +8,13 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        // a/d // l/r mvmt
         float move = Input.GetAxis("Horizontal");
         transform.Translate(Vector2.right * move * speed * Time.deltaTime);
         
-        // boundary limits ??
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, -6f, 6f);
         transform.position = pos;
         
-        
-        // shoot w/ spacebar
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Shoot();
@@ -27,11 +23,21 @@ public class PlayerController : MonoBehaviour
     
     void Shoot()
     {
-        // spawn bullet @ players pos
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        Debug.Log("SHOOT WAS CALLED");
         
-        // bullet force
+        Vector3 bulletPosition = new Vector3(transform.position.x, transform.position.y, 0);
+        GameObject bullet = Instantiate(bulletPrefab, bulletPosition, Quaternion.identity);
+        bullet.tag = "Bullet";
+        
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.linearVelocity = Vector2.up * bulletSpeed;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.up * bulletSpeed;
+            Debug.Log("Bullet velocity set to: " + rb.velocity);
+        }
+        else
+        {
+            Debug.LogError("Bullet prefab has no Rigidbody2D!");
+        }
     }
 }
