@@ -25,8 +25,6 @@ public class Enemy : MonoBehaviour
         
         Debug.Log("Enemy trigger status: " + col.isTrigger);
         Debug.Log("Enemy tag: " + gameObject.tag);
-        
-        Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer, true);
     }
     
     void Update()

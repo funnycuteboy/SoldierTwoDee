@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            Debug.Log("Bullet velocity: " + rb.velocity);
+            Debug.Log("Bullet velocity: " + rb.linearVelocity);
         }
         else
         {

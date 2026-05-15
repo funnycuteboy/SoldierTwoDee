@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = Vector2.up * bulletSpeed;
-            Debug.Log("Bullet velocity set to: " + rb.velocity);
+            rb.linearVelocity = Vector2.up * bulletSpeed;
+            Debug.Log("Bullet velocity set to: " + rb.linearVelocity);
         }
         else
         {
