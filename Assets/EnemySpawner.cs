@@ -11,23 +11,41 @@ public class EnemySpawner : MonoBehaviour
     public float minSpeed = 1f;
     public float maxSpeed = 4f;
     
+    private GameCompletion gameCompletion; // ADD THIS LINE
+    
     void Start()
     {
+        gameCompletion = FindObjectOfType<GameCompletion>(); // ADD THIS LINE
         SpawnWave();
     }
     
     void Update()
     {
+        // Check if we've reached the final wave (13)
+        if (currentWave >= 13)
+        {
+            // Don't spawn more waves, just check if all enemies are dead to trigger completion
+            if (enemiesAlive <= 0)
+            {
+                // Use the cached reference instead of finding it every time
+                if (gameCompletion != null)
+                {
+                    gameCompletion.CompleteGame();
+                }
+            }
+            return; // Stop here, don't spawn more waves
+        }
+    
         if (enemiesAlive <= 0)
         {
             currentWave++;
             enemiesToSpawn = currentWave;
-            
+        
             if (enemiesToSpawn > 5)
             {
                 enemiesToSpawn = 5;
             }
-            
+        
             SpawnWave();
         }
     }

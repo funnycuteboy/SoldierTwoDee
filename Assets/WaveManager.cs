@@ -32,13 +32,13 @@ public class WaveManager : MonoBehaviour
             {
                 objectiveText.text = "Objective: Shoot all enemy soldiers";
             }
-            else if (currentWave >= 4 && currentWave <= 6)
+            else if (currentWave >= 4 && currentWave <= 9)
             {
                 objectiveText.text = "Objective: Shoot all enemies";
             }
-            else if (currentWave >= 7)
+            else if (currentWave >= 10 && currentWave <= 13)
             {
-                objectiveText.text = "Objective: Keep fighting!";
+                objectiveText.text = "Objective: Shoot everything you see.";
             }
             
             // Update thoughts panel based on wave
@@ -48,24 +48,36 @@ public class WaveManager : MonoBehaviour
     
     void UpdateThoughts(int wave)
     {
-        // Waves 2-4: Show first thought
-        if (wave >= 2 && wave <= 4)
+        if (wave >= 2 && wave <= 3)
         {
             thoughtsPanel.SetActive(true);
-            thoughtsText.text = "It's ok. I'm serving my country. All I'm doing is shooting hostiles.";
+            thoughtsText.text = "They signed up for this. Just doing my job.";
         }
-        // Waves 5-8: Show second thought
-        else if (wave >= 5 && wave <= 8)
+        
+        else if (wave >= 4 && wave <= 5)
         {
             thoughtsPanel.SetActive(true);
-            thoughtsText.text = "Civilians inevitably get caught in the crossfire. I'm just following orders.";
+            thoughtsText.text = "I don't see people. I only see uniforms.";
         }
-        // Waves 9+: Show third thought
-        else if (wave >= 9)
+        
+        else if (wave >= 6 && wave <= 7)
         {
             thoughtsPanel.SetActive(true);
             thoughtsText.text = "My duty is not to question orders.";
         }
+        
+        else if (wave >= 8 && wave <= 9)
+        {
+            thoughtsPanel.SetActive(true);
+            thoughtsText.text = "I'm a weapon. Weapons shouldn't feel guilt.";
+        }
+        
+        else if (wave >= 10 && wave <= 13)
+        {
+            thoughtsPanel.SetActive(true);
+            thoughtsText.text = "I can't stop. If I stop, I'll think.";
+        }
+        
         // Waves 1 only: Hide panel
         else
         {
