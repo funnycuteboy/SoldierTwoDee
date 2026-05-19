@@ -11,11 +11,13 @@ public class EnemySpawner : MonoBehaviour
     public float minSpeed = 1f;
     public float maxSpeed = 4f;
     
-    private GameCompletion gameCompletion; // ADD THIS LINE
+    public Sprite[] enemySprites;
+    
+    private GameCompletion gameCompletion; 
     
     void Start()
     {
-        gameCompletion = FindObjectOfType<GameCompletion>(); // ADD THIS LINE
+        gameCompletion = FindObjectOfType<GameCompletion>(); 
         SpawnWave();
     }
     
@@ -73,6 +75,8 @@ public class EnemySpawner : MonoBehaviour
             float randomSpeed = Random.Range(minSpeed, maxSpeed);
             enemyScript.SetSpeed(randomSpeed);
             enemyScript.SetSpawner(this);
+            
+            enemyScript.SetRandomSprite(enemySprites);
         }
         
         Debug.Log("Wave " + currentWave + " started with " + enemiesToSpawn + " enemies!");

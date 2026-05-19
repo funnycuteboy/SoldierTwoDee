@@ -11,20 +11,27 @@ public class Enemy : MonoBehaviour
     
     private EnemySpawner spawner;
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
     
     void Start()
     {
-        Debug.Log("=== ENEMY STARTED ===");
-        
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         rb.gravityScale = 0;
         
         Collider2D col = GetComponent<Collider2D>();
-        col.isTrigger = true;
+        if (col != null)
+        {
+            col.isTrigger = true;
+        }
         
-        Debug.Log("Enemy trigger status: " + col.isTrigger);
-        Debug.Log("Enemy tag: " + gameObject.tag);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        // DEBUG: Check if spriteRenderer is found
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("Enemy: No SpriteRenderer found!");
+        }
     }
     
     void Update()
@@ -55,6 +62,42 @@ public class Enemy : MonoBehaviour
         transform.position = pos;
     }
     
+    public void SetRandomSprite(Sprite[] sprites)
+    {
+        Debug.Log("=== SetRandomSprite CALLED ===");
+        
+        if (sprites == null)
+        {
+            Debug.LogError("SetRandomSprite: sprites array is NULL!");
+            return;
+        }
+        
+        Debug.Log("SetRandomSprite: sprites length = " + sprites.Length);
+        
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("SetRandomSprite: spriteRenderer is NULL!");
+            return;
+        }
+        
+        if (sprites.Length == 0)
+        {
+            Debug.LogError("SetRandomSprite: sprites array is EMPTY!");
+            return;
+        }
+        
+        int randomIndex = Random.Range(0, sprites.Length);
+        Debug.Log("SetRandomSprite: randomIndex = " + randomIndex);
+        Debug.Log("SetRandomSprite: sprite name = " + sprites[randomIndex].name);
+        
+        spriteRenderer.sprite = sprites[randomIndex];
+        
+        // Force a temporary scale so enemy is visible
+        transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        
+        Debug.Log("SetRandomSprite: COMPLETE - sprite assigned!");
+    }
+    
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
@@ -67,14 +110,8 @@ public class Enemy : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("!!! ONTRIGGERENTER2D WAS CALLED !!!");
-        Debug.Log("Hit something: " + other.gameObject.name);
-        Debug.Log("Hit tag: " + other.tag);
-        
         if (other.CompareTag("Bullet"))
         {
-            Debug.Log("!!! ENEMY HIT BY BULLET - DESTROYING !!!");
-            
             if (spawner != null)
             {
                 spawner.EnemyDied();
