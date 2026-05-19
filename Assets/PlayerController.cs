@@ -6,9 +6,30 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
     
+    private Animator animator; // ADD THIS
+    
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        transform.localScale = new Vector3(1, 1, 1); // Force normal scale
+    }
     void Update()
     {
         float move = Input.GetAxis("Horizontal");
+        
+        // ADD THIS - Update animation based on movement
+        animator.SetFloat("Speed", Mathf.Abs(move));
+        
+        // ADD THIS - Flip sprite direction
+        if (move > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (move < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        
         transform.Translate(Vector2.right * move * speed * Time.deltaTime);
         
         Vector3 pos = transform.position;
