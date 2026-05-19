@@ -5,12 +5,18 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
-    
-    private Animator animator; // ADD THIS
+    public AudioClip shootSound;
+    private Animator animator; 
+    private AudioSource audioSource;
     
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
         transform.localScale = new Vector3(1, 1, 1); // Force normal scale
     }
     void Update()
@@ -44,7 +50,12 @@ public class PlayerController : MonoBehaviour
     
     void Shoot()
     {
-        Debug.Log("SHOOT WAS CALLED");
+        if (audioSource != null && shootSound != null)
+        {
+            audioSource.pitch = Random.Range(0.9f, 1.1f); // Slight pitch variation
+            audioSource.PlayOneShot(shootSound, 0.3f);
+            audioSource.pitch = 1f; // Reset pitch
+        }
         
         Vector3 bulletPosition = new Vector3(transform.position.x, transform.position.y, 0);
         GameObject bullet = Instantiate(bulletPrefab, bulletPosition, Quaternion.identity);
