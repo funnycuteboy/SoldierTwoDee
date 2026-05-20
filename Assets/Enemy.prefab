@@ -179,3 +179,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff40120d766ab114e8634a4bc1aceda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  deathParticlePrefab: {fileID: 3688198414113933981, guid: c51f06310b4dc724686c15fc5bc85ea1, type: 3}

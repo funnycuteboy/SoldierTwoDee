@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private float topBoundary = 4.5f;
     private float bottomBoundary = -4.5f;
     
+    public GameObject deathParticlePrefab;
     private EnemySpawner spawner;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -112,6 +113,11 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
+            if (deathParticlePrefab != null)
+            {
+                Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+            }
+            
             if (spawner != null)
             {
                 spawner.EnemyDied();
