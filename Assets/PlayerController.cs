@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public PlayParticle muzzleFlash;
     public float speed = 5f;
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
@@ -55,6 +56,12 @@ public class PlayerController : MonoBehaviour
             audioSource.pitch = Random.Range(0.9f, 1.1f); // Slight pitch variation
             audioSource.PlayOneShot(shootSound, 0.3f);
             audioSource.pitch = 1f; // Reset pitch
+        }
+        
+        // Play muzzle flash particle
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.Play();
         }
         
         Vector3 bulletPosition = new Vector3(transform.position.x, transform.position.y, 0);
